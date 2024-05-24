@@ -1,12 +1,20 @@
 // require('dotenv').config({ path: './env' })
 import dotenv from "dotenv"
 import connectDB from "./db/index.js";
+import { app } from './app.js'
 dotenv.config({
     path: './.env'
 })
 // console.log(process.env.MONGODB_URI)
-connectDB()
-
+connectDB()     // asynchronus methods complete hone ke baad promise return krta haii
+    .then(() => {
+        app.listen(process.env.PORT || 8000, () => {
+            console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+        })
+    })
+    .catch((error) => {
+        console.log("MONGODB Connection Failed !!", error)
+    })
 
 
 
@@ -36,5 +44,13 @@ const app = express()
         throw err
     }
 })()
+
+*/
+
+/* app,send having 4 paramter (err , req , res , next)
+URL se jo data aata hai usko req.params se deal krte hai
+
+
+
 
 */
