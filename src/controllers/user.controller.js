@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 
-/*
+
 const generateAccessAndRefereshTokens = async (userId) => {
     try {
         const user = await User.findById(userId)
@@ -23,7 +23,7 @@ const generateAccessAndRefereshTokens = async (userId) => {
         throw new ApiError(500, "Something went wrong while generating referesh and access token")
     }
 }
-*/
+
 
 const registerUser = asyncHandler(async (req, res) => {
     // get user details from frontend
@@ -103,7 +103,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 })
 
-/*
+
 const loginUser = asyncHandler(async (req, res) => {
     // req body -> data
     // username or email
@@ -129,6 +129,8 @@ const loginUser = asyncHandler(async (req, res) => {
         $or: [{ username }, { email }]
     })
 
+    console.log(user)
+
     if (!user) {
         throw new ApiError(404, "User does not exist")
     }
@@ -142,10 +144,13 @@ const loginUser = asyncHandler(async (req, res) => {
     const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(user._id)
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+    // .select("-v1 -v2") ye issme 2 ko unsekect karega
 
     const options = {
         httpOnly: true,
         secure: true
+
+        // cookies is method se srif server ke through modify hongi not from fronted
     }
 
     return res
@@ -163,6 +168,8 @@ const loginUser = asyncHandler(async (req, res) => {
         )
 
 })
+
+// Logged Out
 
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
@@ -188,6 +195,7 @@ const logoutUser = asyncHandler(async (req, res) => {
         .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logged Out"))
 })
+
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
@@ -237,6 +245,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
 })
 
+/*
 const changeCurrentPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body
 
@@ -491,8 +500,8 @@ const getWatchHistory = asyncHandler(async (req, res) => {
 
 export {
     registerUser,
-    // loginUser,
-    // logoutUser,
+    loginUser,
+    logoutUser
     // refreshAccessToken,
     // changeCurrentPassword,
     // getCurrentUser,

@@ -63,7 +63,9 @@ userSchema.pre("save", async function (next) {
 // arrow fn ke anade this ka refernce nhi hota...isiliye fn is tarike se nhi denge
 
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password)
+    // console.log(typeof (String(password)))
+    // console.log(typeof (this.password))
+    return await bcrypt.compare(String(password), this.password)
 }
 
 userSchema.methods.generateAccessToken = function () {
