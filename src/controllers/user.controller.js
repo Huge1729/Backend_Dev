@@ -245,7 +245,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
 })
 
-/*
+
 const changeCurrentPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body
 
@@ -301,6 +301,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, user, "Account details updated successfully"))
 });
 
+
 const updateUserAvatar = asyncHandler(async (req, res) => {
     const avatarLocalPath = req.file?.path
 
@@ -333,6 +334,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
             new ApiResponse(200, user, "Avatar image updated successfully")
         )
 })
+
 
 const updateUserCoverImage = asyncHandler(async (req, res) => {
     const coverImageLocalPath = req.file?.path
@@ -368,7 +370,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
         )
 })
 
-
+/*
 const getUserChannelProfile = asyncHandler(async (req, res) => {
     const { username } = req.params
 
@@ -501,13 +503,13 @@ const getWatchHistory = asyncHandler(async (req, res) => {
 export {
     registerUser,
     loginUser,
-    logoutUser
-    // refreshAccessToken,
-    // changeCurrentPassword,
-    // getCurrentUser,
-    // updateAccountDetails,
-    // updateUserAvatar,
-    // updateUserCoverImage,
+    logoutUser,
+    refreshAccessToken,
+    changeCurrentPassword,
+    getCurrentUser,
+    updateAccountDetails,
+    updateUserAvatar,
+    updateUserCoverImage,
     // getUserChannelProfile,
     // getWatchHistory
 }
